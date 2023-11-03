@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Order Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .order-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .split {
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .split label {
+                width: 48%;
+            }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #7AB730;
+            border-radius: 5px;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            border: 2px solid #7AB730;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        select {
+            height: 40px;
+        }
+
+        input[type="submit"] {
+            background-color: #7AB730;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section style="margin-top:50px" class="h-100">
+            <div style="background-color: #eee;" class="order-container">
+                <h2>Product Order Form</h2><hr />
+                <form action="handler.php" method="POST">
+                    <div class="split">
+                        <h2 style="color:#7AB730"><i class="bi bi-cart3"></i></h2>
+                        <h4 style="margin-right:130px;">Select products you would like to buy and the quantity:</h4>
+                    </div>
+                    <label style="margin-left:43px" for="product1"><input type="checkbox" id="product1" name="product1"> Product 1 - Price: $10</label>
+                    <label style="margin-left:43px" for="product2"><input type="checkbox" id="product2" name="product2"> Product 2 - Price: $15</label>
+                    <label style="margin-left:43px" for="product3"><input type="checkbox" id="product3" name="product3"> Product 3 - Price: $20</label>
+
+                    <div style="margin-top:20px" class="split">
+                        <h2 style="color:#7AB730"><i class="bi bi-person"></i></h2>
+                        <h4 style="margin-right:489px;">Personal Information</h4>
+                    </div>
+                    <div style="margin-left:43px" class="split">
+                        <label for="firstname">First Name:</label>
+                        <label for="lastname">Last Name:</label>
+                    </div>
+                    <div style="margin-left:43px" class="split">
+                        <input type="text" style="margin-right:20px" id="firstname" name="firstname" required>
+                        <input type="text" id="lastname" name="lastname" required>
+                    </div>
+
+                    <label style="margin-left:43px" for="email">Email:</label>
+                    <input style="margin-left:43px; width: 718px;" type="email" id="email" name="email" required>
+
+                    <label style="margin-left:43px" for="phone">Phone:</label>
+                    <input style="margin-left:43px; width: 718px;" type="tel" id="phone" name="phone" required>
+
+                    <div style="margin-top:20px" class="split">
+                        <h2 style="color:#7AB730"><i class="bi bi-geo-alt"></i></h2>
+                        <h4 style="margin-right:498px;">Delivery Information</h4>
+                    </div>
+                    <label style="margin-left:43px" for="address">Delivery Address:</label>
+                    <textarea style="margin-left:43px; width: 718px;" id="address" name="address" required></textarea>
+
+                    <label style="margin-left:43px" for="delivery-method">Delivery Method:</label>
+                    <select style="margin-left:43px; width: 718px;" id="delivery-method" name="delivery-method" required>
+                        <option value="courier">Courier</option>
+                        <option value="pickup">Pickup</option>
+                    </select>
+
+                    <div style="margin-top:20px" class="split">
+                        <h2 style="color:#7AB730"><i class="bi bi-credit-card"></i></h2>
+                        <h4 style="margin-right:534px;">Payment Method</h4>
+                    </div>
+                    <label style="margin-left:43px; margin-bottom:10px;" for="payment-method">Select payment method:</label>
+
+                    <input style="margin-left:43px; color:#7AB730" type="radio" id="bank-transfer" name="payment-method[]" value="Bank Transfer or E-Wallet" />
+                    <span>
+                        <span style="color:#7AB730;font-size:20px;">
+                            <i class="bi bi-credit-card"></i>
+                        </span>
+                        <b>Bank Transfer or E-Wallet</b>
+                    </span>
+                    <br />
+                    <input style="margin-left:43px" type="radio" id="card-on-delivery" name="payment-method[]" value="Credit Card on Delivery" />
+                    <span>
+                        <span style="color:#7AB730;font-size:20px;">
+                            <i class="bi bi-credit-card-2-front"></i>
+                        </span>
+                        <b>Credit Card on Delivery</b>
+                    </span>
+                    <br />
+                    <input style="margin-left:43px" type="radio" id="cash-on-delivery" name="payment-method[]" value="Cash on Delivery">
+                    <span>
+                        <span style="color:#7AB730;font-size:20px;">
+                            <i class="bi bi-cash-stack"></i>
+                        </span>
+                        <b>Cash on Delivery</b>
+                    </span>
+
+                    <div style="margin-bottom:30px;" class="split">
+                        <div style="margin-top:20px; class="left-section">
+                            <div class="split">
+                                <h2 style="color:#7AB730"><i class="bi bi-check-circle"></i></h2>
+                                <h4 style="margin-left:10px">Confirmation Method</h4>
+                            </div>
+                            <span style="margin-left:43px" for="confirmation-method">Choose a confirmation method:</span>
+                            <br />
+                            <input style="margin-left:43px" type="radio" id="sms" name="confirmation-method" value="sms" required>
+                            <span>
+                                <span style="color:#7AB730;font-size:20px;">
+                                    <i class="bi bi-chat-left-dots"></i>
+                                </span>
+                                <b>SMS</b>
+                            </span>
+                            <br />
+                            <input style="margin-left:43px" type="radio" id="call" name="confirmation-method" value="call" required>
+                            <span>
+                                <span style="color:#7AB730;font-size:20px;">
+                                    <i class="bi bi-telephone-inbound"></i>
+                                </span>
+                                <b>Operator Call</b>
+                            </span>
+                        </div>
+                        <div style="margin-top:20px;margin-left:23px" class="right-section">
+                            <div class="split">
+                                <h4 style="margin-bottom:15px">Additional Comments</h4>
+                            </div>
+                            <span for="comments">Comments on the order:</span>
+                            <textarea id="comments" name="comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <a type="button" asp-controller="Payment" asp-action="Index" class="btn btn-primary btn-lg">Place Order</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

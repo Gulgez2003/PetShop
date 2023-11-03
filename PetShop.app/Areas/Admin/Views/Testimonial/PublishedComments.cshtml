@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "PublishedComments";
+    var count = 0;
+}
+
+@model List<TestimonialGetDTO>
+
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="col-xl-12 col-md-12">
+            <div class="card table-card">
+                <div class="card-header">
+                    <h5>Published Comments</h5>
+                    <div class="card-header-right">
+                        <div class="btn-group card-option">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="feather icon-more-horizontal"></i>
+                            </button>
+                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>FullName</th>
+                                    <th>Email</th>
+                                    <th>Comment</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr data-testimonial-id="@item.Id">
+                                        <td>@count</td>
+                                        <td>@item.FullName</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Comment</td>
+                                        <td>
+                                            <div class="flex align-items-center list-user-action">
+                                                <div class="card-body">
+                                                    <button class="btn btn-icon btn-outline-danger disapproveBtn" data-testimonial-id="@item.Id">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    const disapproveBtns = document.querySelectorAll(".disapproveBtn");
+
+    disapproveBtns.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const id = btn.getAttribute("data-testimonial-id");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, disapprove it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: `/Admin/Testimonial/Disapprove/${id}`,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                Swal.fire(
+                                    'Disapproved!',
+                                    data.message,
+                                    'success'
+                                );
+                                // Удалите строку из таблицы и обновите порядковые номера
+                                $(`tr[data-testimonial-id="${id}"]`).remove();
+                                // Обновите порядковые номера
+                                updateRowNumbers();
+                            } else {
+                                Swal.fire(
+                                    'Error',
+                                    'An error occurred while disapproving the comment.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Error',
+                                'An error occurred while disapproving the comment.',
+                                'error'
+                            );
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Cancelled',
+                        "Comment hasn't been disapproved.",
+                        'error'
+                    );
+                }
+            });
+        });
+    });
+
+    function updateRowNumbers() {
+        const rows = $("tbody tr");
+        rows.each(function (index, row) {
+            $(row).find("td:first").text(index + 1);
+        });
+    }
+</script>
+

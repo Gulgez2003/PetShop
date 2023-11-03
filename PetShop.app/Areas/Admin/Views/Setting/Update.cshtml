@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+
+@model SettingUpdateDTO
+
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ form-element ] start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Update Setting</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="@Model.settingGetDTO.Id" />
+                                <div class="mb-3">
+                                    <label asp-for="@Model.settingPostDTO.Information" class="form-label"></label>
+                                    <input type="text" class="form-control" asp-for="@Model.settingPostDTO.Information" value="@Model.settingGetDTO.Information">
+                                    <span asp-validation-for="@Model.settingPostDTO.Information" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.settingPostDTO.PhoneNumber" class="form-label"></label>
+                                    <input type="text" class="form-control" asp-for="@Model.settingPostDTO.PhoneNumber" value="@Model.settingGetDTO.PhoneNumber">
+                                    <span asp-validation-for="@Model.settingPostDTO.PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.settingPostDTO.Email" class="form-label"></label>
+                                    <input type="text" class="form-control" asp-for="@Model.settingPostDTO.Email" value="@Model.settingGetDTO.Email">
+                                    <span asp-validation-for="@Model.settingPostDTO.Email" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.settingPostDTO.Address" class="form-label"></label>
+                                    <input type="text" class="form-control" asp-for="@Model.settingPostDTO.Address" value="@Model.settingGetDTO.Address">
+                                    <span asp-validation-for="@Model.settingPostDTO.Address" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.settingPostDTO.FaceBookIcon" class="form-label"></label>
+                                    <input type="text" class="form-control" asp-for="@Model.settingPostDTO.FaceBookIcon" value="@Model.settingGetDTO.FaceBookIcon">
+                                    <span asp-validation-for="@Model.settingPostDTO.FaceBookIcon" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.settingPostDTO.TwitterIcon" class="form-label"></label>
+                                    <input type="text" class="form-control" asp-for="@Model.settingPostDTO.TwitterIcon" value="@Model.settingGetDTO.TwitterIcon">
+                                    <span asp-validation-for="@Model.settingPostDTO.TwitterIcon" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.settingPostDTO.InstagramIcon" class="form-label"></label>
+                                    <input type="text" class="form-control" asp-for="@Model.settingPostDTO.InstagramIcon" value="@Model.settingGetDTO.InstagramIcon">
+                                    <span asp-validation-for="@Model.settingPostDTO.InstagramIcon" class="text-danger"></span>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button asp-controller="Setting" asp-action="Index" class="btn btn-light">Back to List</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ form-element ] end -->
+</section>

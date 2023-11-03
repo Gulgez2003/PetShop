@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+@model CategoryPostDTO
+
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ form-element ] start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Create a category</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Name">Category Name</label>
+                                    <input class="form-control" asp-for="@Model.Name" placeholder="Name">
+                                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Choose sub-categories to witch this category can be attributed</label><br />
+                                    @foreach (var item in ViewBag.SubCategories)
+                                    {
+                                        <input type="checkbox" name="selectedSubCategories" value="@item.Id" />
+
+                                        @item.Name <br /> 
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Choose animals to witch this category can be attributed</label><br />
+                                    @foreach (var item in ViewBag.Animals)
+                                    {
+                                        <input type="checkbox" name="selectedAnimals" value="@item.Id" />
+
+                                        @item.Name <br />
+                                    }
+                                </div>
+                                
+                                <button type="submit" class="btn  btn-primary">Submit</button>
+                                <button asp-controller="Category" asp-action="Index" class="btn btn-light">Back to List</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ form-element ] end -->
+</section>
+
+

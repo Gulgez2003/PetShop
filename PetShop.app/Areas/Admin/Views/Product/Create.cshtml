@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+@model ProductPostDTO
+
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ form-element ] start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Create Product</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Name">Product Name</label>
+                                    <input class="form-control" asp-for="@Model.Name" placeholder="Name">
+                                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.Title">Product Title</label>
+                                    <input class="form-control" asp-for="@Model.Title" placeholder="Title">
+                                    <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.Description">Product Description</label>
+                                    <input class="form-control" asp-for="@Model.Description" placeholder="Description">
+                                    <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.Price">Product Price</label>
+                                    <input class="form-control" asp-for="@Model.Price" placeholder="Price">
+                                    <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Sub-category</label>
+                                    <select class="form-control" asp-for="@Model.SubCategoryId"> 
+                                        @foreach (var item in ViewBag.SubCategories)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Upload Image</label>
+                                    <input type="file" class="form-control" accept="image/*" asp-for="@Model.File">
+                                    <span asp-validation-for="@Model.File" class="text-danger"></span>
+                                </div>
+
+                                <button type="submit" class="btn  btn-primary">Submit</button>
+                                <button asp-controller="Product" asp-action="Index" class="btn btn-light">Back to List</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ form-element ] end -->
+</section>
+
+

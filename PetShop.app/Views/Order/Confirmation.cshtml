@@ -1,0 +1,121 @@
+﻿<div class="container">
+    <section style="margin-top:50px" class="h-100">
+        <div class="container p-0">
+            <div class="card px-4">
+                <p class="h8 py-3">Payment Details</p>
+                <div class="row gx-3">
+                    <div class="col-12">
+                        <div class="d-flex flex-column">
+                            <p class="text mb-1">Person Name</p>
+                            <input class="form-control confirm mb-3" type="text" placeholder="Name" value="">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex flex-column">
+                            <p class="text mb-1">Card Number</p>
+                            <input class="form-control confirm mb-3" type="text" placeholder="1234 5678 435678">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex flex-column">
+                            <p class="text mb-1">Expiry</p>
+                            <input class="form-control confirm mb-3" type="text" placeholder="MM/YYYY">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex flex-column">
+                            <p class="text mb-1">CVV/CVC</p>
+                            <input class="form-control confirm mb-3 pt-2 " type="password" placeholder="***">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="btn btn-primary confirm mb-3">
+                            <span class="ps-3">Pay $243</span>
+                            <span class="fas fa-arrow-right"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .card {
+        max-width: 500px;
+        margin: auto;
+        color: black;
+        border-radius: 20 px;
+    }
+
+    p {
+        margin: 0px;
+    }
+
+    .container .h8 {
+        font-size: 30px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .btn.btn-primary.confirm {
+        width: 100%;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        background-image: linear-gradient(to right, #7ab730 0%, #afd382 51%, #94c559 100%);
+        border: none;
+        transition: 0.5s;
+        background-size: 200% auto;
+    }
+
+
+    .btn.btn.btn-primary.confirm:hover {
+        background-position: right center;
+        color: #fff;
+        text-decoration: none;
+    }
+
+
+
+    .btn.btn-primary.confirm:hover .fas.fa-arrow-right {
+        transform: translate(15px);
+        transition: transform 0.2s ease-in;
+    }
+
+    .form-control.confirm {
+        color: white;
+        background-color: #7ab730;
+        border: 2px solid transparent;
+        height: 60px;
+        padding-left: 20px;
+        vertical-align: middle;
+    }
+
+    .form-control.confirm:focus {
+            color: white;
+            background-color: #94c559;
+            border: 2px solid #619226;
+            box-shadow: none;
+        }
+
+    .text {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    ::placeholder {
+        font-size: 14px;
+        font-weight: 600;
+    }
+</style>

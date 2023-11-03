@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Basket Page";
+
+    int count = 1;
+    double orderTotal = 0;
+}
+
+@model List<BasketItemVM>
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <section class="h-100" style="background-color: #eee;">
+            <div class="container h-100 py-5">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-10">
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+                            <div>
+                                <p class="mb-0">
+                                    <span class="text-muted">Sort by:</span> <a href="#!" class="text-body">
+                                        price <i class="fas fa-angle-down mt-1"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="card rounded-3 mb-4" data-basket-id="@item.Id">
+                                <div class="card-body p-4">
+                                    <div class="row d-flex justify-content-between align-items-center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img src="~/assets/img/@item.ImageName"
+                                             class="img-fluid rounded-3" alt="Product">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <p class="lead fw-normal mb-2">@item.Name</p>
+                                            <p><span class="text-muted">@item.Title</p>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <button class="btn btn-link px-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+
+                                            <input data-product-id="@item.Id" min="0" name="quantity" value="@item.ProductCount" type="number" class="form-control form-control-sm quantity-input" />
+                                         
+                                            <button class="btn btn-link px-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <h5 class="mb-0 item-price" data-product-id="@item.Id">@(item.ProductCount * item.Price) ₼</h5>
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <button class="btn  btn-icon btn-outline-danger deleteBtn" data-basket-id="@item.Id">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            count++;
+                            orderTotal += (item.ProductCount * item.Price);
+                        }
+
+                        <div class="card mb-4">
+                            <div class="card-body p-4 d-flex flex-row">
+                                <div class="float-end">
+                                    <p class="mb-0 me-5 d-flex align-items-center">
+                                        <span class="small text-muted me-2">Order total:</span> <span class="lead fw-normal">@orderTotal ₼</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <a type="button" asp-controller="Product" asp-action="Index" class="btn btn-outline-dark btn-lg me-2">Continue shopping</a>
+                            <a type="button" asp-controller="Order" asp-action="Create" class="btn btn-primary btn-lg">Add to cart</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    const deleteBtns = document.querySelectorAll(".deleteBtn");
+
+    deleteBtns.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const id = btn.getAttribute("data-basket-id");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "GET",
+                        url: `/Basket/Delete/${id}`,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
+                                // Удалите строку из таблицы и обновите порядковые номера
+                                $(`div[data-basket-id="${id}"]`).remove();
+                               
+                            } else {
+                                Swal.fire(
+                                    'Error',
+                                    'An error occurred while deleting the item.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Error',
+                                'An error occurred while deleting the item.',
+                                'error'
+                            );
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Cancelled',
+                        "Your file has not been deleted.",
+                        'error'
+                    );
+                }
+            });
+        });
+    });
+
+</script>

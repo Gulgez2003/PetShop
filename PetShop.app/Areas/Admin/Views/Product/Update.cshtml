@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+
+@model ProductUpdateDTO
+
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ form-element ] start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Update Product</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="@Model.productGetDTO.Id" />
+                                <div class="form-group">
+                                    <label asp-for="@Model.productPostDTO.Name">Product Name</label>
+                                    <input class="form-control" asp-for="@Model.productPostDTO.Name" placeholder="Name" value="@Model.productGetDTO.Name">
+                                    <span asp-validation-for="@Model.productPostDTO.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.productPostDTO.Title">Product Title</label>
+                                    <input class="form-control" asp-for="@Model.productPostDTO.Title" placeholder="Title" value="@Model.productGetDTO.Title">
+                                    <span asp-validation-for="@Model.productPostDTO.Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.productPostDTO.Description">Product Description</label>
+                                    <input class="form-control" asp-for="@Model.productPostDTO.Description" placeholder="Description" value="@Model.productGetDTO.Description">
+                                    <span asp-validation-for="@Model.productPostDTO.Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.productPostDTO.Price">Product Price</label>
+                                    <input class="form-control" asp-for="@Model.productPostDTO.Price" placeholder="Price" value="@Model.productGetDTO.Price">
+                                    <span asp-validation-for="@Model.productPostDTO.Price" class="text-danger"></span>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Select Sub-category</label>
+                                    <select class="form-control" asp-for="@Model.productPostDTO.SubCategoryId">
+                                        <option value="@Model.productGetDTO.SubCategory.Id" selected>@Model.productGetDTO.SubCategory.Name</option>
+                                        @foreach (var item in ViewBag.SubCategories)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="form-label">Upload File</label>
+                                    <input type="file" class="form-control" accept="image/*" asp-for="@Model.productPostDTO.File" value="@Model.productGetDTO.ImageName">
+                                    <span asp-validation-for="@Model.productPostDTO.File" class="text-danger"></span>
+                                </div>
+                                <div style="margin-top: 20px">
+                                    <button type="submit" class="btn  btn-primary ">Submit</button>
+                                    <button asp-controller="Product" asp-action="Index" class="btn btn-light">Back to List</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ form-element ] end -->
+</section>

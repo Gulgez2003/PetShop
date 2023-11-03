@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+
+@model SubCategoryUpdateDTO
+
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ form-element ] start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Update Sub-category</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="@Model.subCategoryGetDTO.Id" />
+                                <div class="form-group">
+                                    <label asp-for="@Model.subCategoryPostDTO.Name">Sub-category Name</label>
+                                    <input class="form-control" asp-for="@Model.subCategoryPostDTO.Name" placeholder="Name" value="@Model.subCategoryGetDTO.Name">
+                                    <span asp-validation-for="@Model.subCategoryPostDTO.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Select Category</label>
+                                    <select class="form-control" asp-for="@Model.subCategoryPostDTO.CategoryId">
+                                        <option value="@Model.subCategoryGetDTO.Category.Id" selected>@Model.subCategoryGetDTO.Category.Name</option>
+                                        @foreach (var item in ViewBag.Categories)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Select Products</label><br />
+                                    @foreach (var item in ViewBag.Products)
+                                    {
+                                        <input type="checkbox" name="subCategoryPostDTO.SelectedProducts" value="@item.Id"
+                                           @(Model.subCategoryGetDTO.Products.Any(c => c.Id == item.Id) ? "checked=\"checked\"" : "") />
+                                        @item.Name <br />
+                                    }
+                                </div>
+
+                                <div style="margin-top: 20px">
+                                    <button type="submit" class="btn  btn-primary ">Submit</button>
+                                    <button asp-controller="SubCategory" asp-action="Index" class="btn btn-light">Back to List</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ form-element ] end -->
+</section>
+
+
+

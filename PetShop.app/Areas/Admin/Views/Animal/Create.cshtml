@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+@model AnimalPostDTO
+
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ form-element ] start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Create Animal</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Name">Animal Name</label>
+                                    <input class="form-control" asp-for="@Model.Name" placeholder="Name">
+                                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Select Categories</label><br />
+                                    @foreach (var item in ViewBag.Categories)
+                                    {
+                                        <input type="checkbox" name="selectedCategories" value="@item.Id" />
+
+                                        @item.Name <br />
+                                    }
+                                </div> 
+                                <div class="form-group">
+                                    <label class="form-label">Upload Image</label>
+                                    <input type="file" class="form-control" accept="image/*" asp-for="@Model.File">
+                                    <span asp-validation-for="@Model.File" class="text-danger"></span>
+                                </div>
+
+                                <button type="submit" class="btn  btn-primary">Submit</button>
+                                <button asp-controller="Animal" asp-action="Index" class="btn btn-light">Back to List</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ form-element ] end -->
+</section>
+
+

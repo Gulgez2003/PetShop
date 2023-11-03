@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var count = 0;
+}
+
+@model List<SettingGetDTO>
+
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="col-xl-12 col-md-12">
+            <div class="card table-card">
+                <div class="card-header">
+                    <h5>Settings</h5>
+                    <div class="card-header-right">
+                        <div class="btn-group card-option">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="feather icon-more-horizontal"></i>
+                            </button>
+                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Information</th>
+                                    <th>Phonenumber</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Facebook Icon</th>
+                                    <th>Twitter Icon</th>
+                                    <th>Instagram Icon</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Information</td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Address</td>
+                                        <td><i class="@Html.Raw(item.FaceBookIcon)"></td>
+                                        <td><i class="@Html.Raw(item.TwitterIcon)"></td>
+                                        <td><i class="@Html.Raw(item.InstagramIcon)"></td>
+                                        <td>
+                                            <div class="flex align-items-center list-user-action">
+                                                <div class="card-body">
+                                                    <a asp-action="Update" asp-controller="Setting" asp-route-id="@item.Id">
+                                                        <button type="button" class="btn btn-icon btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+﻿@{
+    ViewData["Title"] = "Product Details Page";
+    int count = 0;
+}
+@model ProductCategoryTestimonialVM
+
+<!-- Blog Start -->
+<div class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <!-- Blog Detail Start -->
+            <div class="mb-5">
+                <img class="img-fluid rounded mb-5" style="width:400px; height:400px;" src="~/assets/img/@Model.ProductGetDTO.ImageName" alt="">
+                <h1 class="text-uppercase mb-4">@Model.ProductGetDTO.Name</h1>
+                <p>@Model.ProductGetDTO.Description</p>
+            </div>
+            <!-- Blog Detail End -->
+            <!-- Comment List Start -->
+            <div class="mb-5">
+                <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Comments</h3>
+                @foreach (var item in Model.TestimonialGetDTOs)
+                {
+                    <div class="d-flex mb-4">
+                        <img src="~/assets/img/user.jpg" class="img-fluid" style="width: 45px; height: 45px;">
+                        <div class="ps-3">
+                            <h6><a href="">@item.FullName</a> <small><i>01 Jan 2045</i></small></h6>
+                            <p>
+                                @item.Comment
+                            </p>
+                            <button class="btn btn-sm btn-light">Reply</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Comment List End -->
+            <!-- Comment Form Start -->
+            <div class="bg-light rounded p-5">
+                <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Leave a comment</h3>
+                <form id="commentForm" method="post">
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6">
+                            <input type="text" asp-for="@Model.TestimonialPostDTO.FullName" class="form-control bg-white border-0" placeholder="Your Fullname" style="height: 55px;">
+                             <span asp-validation-for="@Model.TestimonialPostDTO.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input type="email" asp-for="@Model.TestimonialPostDTO.Email" class="form-control bg-white border-0" placeholder="Your Email" style="height: 55px;">
+                            <span asp-validation-for="@Model.TestimonialPostDTO.Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <textarea asp-for="@Model.TestimonialPostDTO.Comment" class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
+                            <span asp-validation-for="@Model.TestimonialPostDTO.Comment" class="text-danger"></span>
+                        </div>
+                        <input type="hidden" asp-for="@Model.TestimonialPostDTO.ProductId" value="@Model.ProductGetDTO.Id" />
+                        <div class="col-12">
+                             <button type="submit" class="btn btn-primary w-100 py-3 submitbtn" id="submitBtn">Leave Your Comment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Comment Form End -->
+        </div>
+
+        <!-- Sidebar Start -->
+        <div class="col-lg-4">
+            <!-- Search Form Start -->
+            <div class="mb-5">
+                <div class="input-group">
+                    <form asp-action="Search" asp-controller="Product">
+                        <input type="text" name="name" class="form-control p-3" placeholder="Keyword">
+                        <button type="submit" class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+            </div>
+            <!-- Search Form End -->
+            <!-- Category Start -->
+            <div class="mb-5">
+                <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Categories</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    @foreach (var item in Model.CategoryGetDTOs)
+                    {
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><i class="bi bi-arrow-right me-2"></i>@item.Name</a>
+                    }
+                </div>
+            </div>
+            <!-- Category End -->
+            <!-- Image Start -->
+            <div class="mb-5">
+                <img src="assets/img/blog-1.jpg" alt="" class="img-fluid rounded">
+            </div>
+            <!-- Image End -->
+            <!-- Tags Start -->
+            <div class="mb-5">
+                <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Tag Cloud</h3>
+                <div class="d-flex flex-wrap m-n1">
+                    <a href="" class="btn btn-primary m-1">Design</a>
+                    <a href="" class="btn btn-primary m-1">Development</a>
+                    <a href="" class="btn btn-primary m-1">Marketing</a>
+                    <a href="" class="btn btn-primary m-1">SEO</a>
+                    <a href="" class="btn btn-primary m-1">Writing</a>
+                    <a href="" class="btn btn-primary m-1">Consulting</a>
+                    <a href="" class="btn btn-primary m-1">Design</a>
+                    <a href="" class="btn btn-primary m-1">Development</a>
+                    <a href="" class="btn btn-primary m-1">Marketing</a>
+                    <a href="" class="btn btn-primary m-1">SEO</a>
+                    <a href="" class="btn btn-primary m-1">Writing</a>
+                    <a href="" class="btn btn-primary m-1">Consulting</a>
+                </div>
+            </div>
+            <!-- Tags End -->
+        </div>
+        <!-- Sidebar End -->
+    </div>
+</div>
+<!-- Blog End -->
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const commentForm = document.getElementById("commentForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    submitBtn.addEventListener("click", (event) => {
+        event.preventDefault(); // Предотвратить отправку формы по умолчанию
+
+        // Собираем данные из формы
+        const formData = new FormData(commentForm);
+
+        fetch("/ProductDetail/Details", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Обработка ответа от сервера
+                if (data.success) {
+                    Swal.fire(
+                        'Your message has been submitted for review',
+                        'Your comment will be published after admin approval.'
+                    );
+                    // Очистка полей формы или другие действия после успешной отправки
+                    commentForm.reset();
+                } else {
+                    Swal.fire('Error', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire('Error', 'An error occurred while submitting the form.', 'error');
+            });
+    });
+</script>

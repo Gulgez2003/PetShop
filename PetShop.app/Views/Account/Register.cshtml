@@ -1,0 +1,91 @@
+﻿@model RegisterDTO
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="~/account/assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/account/assets/css/style.css">
+</head>
+<body>
+    <div class="main">
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                            <div class="form-group">
+                                <span asp-validation-for="@Model.FullName" class="text-danger"></span>
+                                <label asp-for="@Model.FullName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" asp-for="@Model.FullName" placeholder="Your Name" />
+                            </div>
+                            <div class="form-group">
+                                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                                <label asp-for="@Model.UserName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" asp-for="@Model.UserName" placeholder="Username" />
+                            </div>
+                            <div class="form-group">
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                                <label asp-for="@Model.Email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" asp-for="@Model.Email" placeholder="Your Email" />
+                            </div>
+                            <div class="form-group">
+                                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                <label asp-for="@Model.Password"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" asp-for="@Model.Password" placeholder="Password" />
+                            </div>
+                            <div class="form-group">
+                                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                                <label asp-for="@Model.ConfirmPassword"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" asp-for="@Model.ConfirmPassword" placeholder="Repeat your password" />
+                            </div>
+                            <div class="form-group form-button">
+                                <button type="submit" class="btn btn-primary btn-lg submitbtn">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image" style="padding-top:50px;">
+                        <figure><img src="~/account/assets/images/12356164_2edi_xj68_201208.jpg" alt="sing up image"></figure>
+                        <a asp-controller="Account" asp-action="Login" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JS -->
+    <script src="~/account/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/account/assets/js/main.js"></script>
+</body>
+</html>
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const btns = document.querySelectorAll(".submitbtn");
+    btns.forEach(btn => {
+        btn.addEventListener("click", () => {
+
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your verification link has been sent. Please, verify your email',
+                showConfirmButton: false,
+                timer: 4000
+            })
+        })
+    })
+</script>
